@@ -5,12 +5,21 @@
  */
 package placas;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.Files;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
 
 /**
  *
@@ -21,7 +30,12 @@ public class Principla extends javax.swing.JFrame {
     /**
      * Creates new form Principla
      */
+    String archivo="";
+    Conexion c;
+    String nombre = "img/";
     public Principla() {
+        c = new Conexion();
+        c.conectar();
         initComponents();
     }
 
@@ -52,7 +66,7 @@ public class Principla extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         imagen = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -98,19 +112,13 @@ public class Principla extends javax.swing.JFrame {
         });
 
         jButton2.setText("REGISTRAR");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
-        jPanel2.setBackground(new java.awt.Color(204, 204, 255));
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 309, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 284, Short.MAX_VALUE)
-        );
+        jLabel8.setBackground(new java.awt.Color(204, 204, 255));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -132,6 +140,10 @@ public class Principla extends javax.swing.JFrame {
                                 .addGap(59, 59, 59)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jButton1)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(imagen, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)
                                             .addComponent(placa)
@@ -139,16 +151,12 @@ public class Principla extends javax.swing.JFrame {
                                             .addComponent(marca)
                                             .addComponent(color)
                                             .addComponent(propietario))
-                                        .addGap(29, 29, 29)
-                                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jButton1)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(imagen, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                        .addGap(37, 37, 37)
+                                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(43, 43, 43)
                         .addComponent(jLabel7)))
-                .addContainerGap(108, Short.MAX_VALUE))
+                .addContainerGap(78, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jButton2)
@@ -157,9 +165,9 @@ public class Principla extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
                             .addComponent(placa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -184,13 +192,14 @@ public class Principla extends javax.swing.JFrame {
                             .addComponent(jLabel6)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(7, 7, 7)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(34, 34, 34)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jButton1)
-                    .addComponent(imagen, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(imagen, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel7)
+                        .addComponent(jButton1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2)
                 .addGap(24, 24, 24))
@@ -229,7 +238,7 @@ public class Principla extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(45, 45, 45)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -255,30 +264,123 @@ public class Principla extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        JFileChooser fileOpen = new JFileChooser();
-//        FileFilter filter = new FileNameExtensionFilter("bmp files", "bmp");
-//        fileOpen.addChoosableFileFilter(filter);
-        String[] suffices = ImageIO.getReaderFileSuffixes();
+        try
+        {
+            nombre = "img/";
+            JFileChooser fileOpen = new JFileChooser();
+    //        FileFilter filter = new FileNameExtensionFilter("bmp files", "bmp");
+    //        fileOpen.addChoosableFileFilter(filter);
+            String[] suffices = ImageIO.getReaderFileSuffixes();
 
-        // Add a file filter for each one
-        for (int i = 0; i < suffices.length; i++) {
-            FileFilter filter = new FileNameExtensionFilter(suffices[i] + " Archivos", suffices[i]);
-            fileOpen.addChoosableFileFilter(filter);
-        }
-        int ret = fileOpen.showDialog(null, "Abrir Archivo");
-        if (ret == JFileChooser.APPROVE_OPTION) {
-            
-            File selectedFile = fileOpen.getSelectedFile();
-            System.out.println("Selected file: " + selectedFile.getAbsolutePath());
-            imagen.setText(selectedFile.getAbsolutePath());
-            ImageIcon img = new ImageIcon(getClass().getResource(selectedFile.getAbsolutePath()));
-            //jPanel2.add(img);
-            
-        } else {
+            // Add a file filter for each one
+            for (int i = 0; i < suffices.length; i++) {
+                FileFilter filter = new FileNameExtensionFilter(suffices[i] + " Archivos", suffices[i]);
+                fileOpen.addChoosableFileFilter(filter);
+            }
+            int ret = fileOpen.showDialog(null, "Abrir Archivo");
+            if (ret == JFileChooser.APPROVE_OPTION) {
 
+                File selectedFile = fileOpen.getSelectedFile();
+                archivo = selectedFile.getAbsolutePath();
+                System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+                nombre+= selectedFile.getName();
+                imagen.setText(selectedFile.getAbsolutePath());
+                ImageIcon img = new ImageIcon(selectedFile.getAbsolutePath());
+
+                
+                jLabel8.setIcon(img);
+                jLabel8.setBounds(450, 50, 330, 280);
+            } else {
+
+            }
+        }catch(Exception ex)
+        {
+            JOptionPane.showMessageDialog(this,"Ocurrio un error al cargar la imagen.");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+       if(placa.getText().equals(""))
+       {
+           JOptionPane.showMessageDialog(this,"El campo placa es obligatorio.");
+       }
+       else if(modelo.getText().equals(""))
+       {
+           JOptionPane.showMessageDialog(this,"El campo modelo es obligatorio.");
+       }
+       else if(marca.getText().equals(""))
+       {
+           JOptionPane.showMessageDialog(this,"El campo marca es obligatorio.");
+       }
+       else if(color.getText().equals(""))
+       {
+           JOptionPane.showMessageDialog(this,"El campo color es obligatorio.");
+       }
+       else if(propietario.getText().equals(""))
+       {
+           JOptionPane.showMessageDialog(this,"El campo propietario es obligatorio.");
+       }
+       else
+       {
+           if(c.ingresar(placa.getText(), modelo.getText(), marca.getText(), color.getText(), propietario.getText(), jTextArea1.getText(),nombre))
+           {
+               copy(archivo, nombre);
+               JOptionPane.showMessageDialog(this,"Registro ingresado.");
+               limpiar();
+           }
+           else
+           {
+               JOptionPane.showMessageDialog(this,"Ocurrio un error.");
+           }
+       }
+    }//GEN-LAST:event_jButton2ActionPerformed
+    
+    private void copy(String source, String fg)
+    {
+        InputStream inStream = null;
+	OutputStream outStream = null;
+ 
+    	try{
+ 
+    	    File afile =new File(source);
+    	    File bfile =new File(fg);
+ 
+    	    inStream = new FileInputStream(afile);
+    	    outStream = new FileOutputStream(bfile);
+ 
+    	    byte[] buffer = new byte[1024];
+ 
+    	    int length;
+    	    //copy the file content in bytes 
+    	    while ((length = inStream.read(buffer)) > 0){
+ 
+    	    	outStream.write(buffer, 0, length);
+ 
+    	    }
+ 
+    	    inStream.close();
+    	    outStream.close();
+ 
+    	    System.out.println("File is copied successful!");
+ 
+    	}catch(IOException e){
+    		e.printStackTrace();
+    	}
+    }
+    
+    private void limpiar()
+    {
+        placa.setText("");
+        modelo.setText("");
+        marca.setText("");
+        color.setText("");
+        propietario.setText("");
+        jTextArea1.setText("");
+        jLabel8.setText("");
+        imagen.setText("");
+        jLabel8.setIcon(null);
+        archivo = "";
+    }
     /**
      * @param args the command line arguments
      */
@@ -326,13 +428,13 @@ public class Principla extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField marca;

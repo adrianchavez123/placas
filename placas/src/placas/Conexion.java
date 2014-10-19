@@ -73,4 +73,23 @@ public class Conexion {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    boolean ingresar(String Strplaca, String Strmodelo, String Strmarca, String Strcolor, String Strpropietario, String text, String archivo) {
+        try
+        {
+            String sentencia ="insert into placas(placa,modelo,marca,color,propietario,observacion,imagen)"
+                    + "values('"
+                    +Strplaca+"','"+Strmodelo+"','"+Strmarca+"','"+Strcolor+"','"+Strpropietario+"','"+text+"','"+archivo+"')";
+            System.out.println(sentencia);
+            
+            st = con.createStatement();
+            st.execute(sentencia);
+            
+            return true;
+        }
+        catch(Exception ex)
+        {
+            return false;
+        }
+    }
 }
