@@ -74,12 +74,12 @@ public class Conexion {
         }
     }
 
-    boolean ingresar(String Strplaca, String Strmodelo, String Strmarca, String Strcolor, String Strpropietario, String text, String archivo) {
+    boolean ingresar(String Strplaca, String Strmodelo, String Strmarca, String Strcolor, int causa, String fecha, String archivo) {
         try
         {
-            String sentencia ="insert into placas(placa,modelo,marca,color,propietario,observacion,imagen)"
+            String sentencia ="insert into placas(placa,modelo,marca,color,causa,fecha,imagen)"
                     + "values('"
-                    +Strplaca+"','"+Strmodelo+"','"+Strmarca+"','"+Strcolor+"','"+Strpropietario+"','"+text+"','"+archivo+"')";
+                    +Strplaca+"','"+Strmodelo+"','"+Strmarca+"','"+Strcolor+"',"+causa+",'"+fecha+"','"+archivo+"')";
             System.out.println(sentencia);
             
             st = con.createStatement();
@@ -89,6 +89,7 @@ public class Conexion {
         }
         catch(Exception ex)
         {
+            System.out.println(ex.getMessage());
             return false;
         }
     }

@@ -13,10 +13,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
+import java.text.DateFormat;
+import java.util.Date;
 import javax.imageio.ImageIO;
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -33,10 +40,22 @@ public class Principla extends javax.swing.JFrame {
     String archivo="";
     Conexion c;
     String nombre = "img/";
+    ButtonGroup grupo = new ButtonGroup();
+    JRadioButton rmodelo = new JRadioButton("Modelo");
+    JRadioButton rmarca = new JRadioButton("Marca");
+    JRadioButton rplaca = new JRadioButton("Placa");
+    JTextField buscar = new JTextField();
+    JButton btnBuscar = new JButton("BUSCAR");
+    JTable table = new JTable();
+    
+    
     public Principla() {
         c = new Conexion();
         c.conectar();
+        
         initComponents();
+        buttonGroup1.add(infraccion);
+        buttonGroup1.add(accidente);
     }
 
     /**
@@ -48,6 +67,7 @@ public class Principla extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -60,49 +80,60 @@ public class Principla extends javax.swing.JFrame {
         marca = new javax.swing.JTextField();
         modelo = new javax.swing.JTextField();
         color = new javax.swing.JTextField();
-        propietario = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         imagen = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        infraccion = new javax.swing.JRadioButton();
+        accidente = new javax.swing.JRadioButton();
+        fecha = new com.toedter.calendar.JDateChooser();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 102));
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel1.setMinimumSize(new java.awt.Dimension(965, 444));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("Placa automovil");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 38, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setText("Modelo");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 73, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setText("Marca");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 115, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel4.setText("Color");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 150, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel5.setText("Propietario");
+        jLabel5.setText("Causa");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel6.setText("Observaciones");
+        jLabel6.setText("Fecha");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel7.setText("Imagen");
-
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, -1, -1));
+        jPanel1.add(placa, new org.netbeans.lib.awtextra.AbsoluteConstraints(217, 42, 296, -1));
+        jPanel1.add(marca, new org.netbeans.lib.awtextra.AbsoluteConstraints(217, 119, 296, -1));
+        jPanel1.add(modelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(217, 77, 296, -1));
+        jPanel1.add(color, new org.netbeans.lib.awtextra.AbsoluteConstraints(217, 154, 296, -1));
 
         jButton1.setText("Cargar imagen");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -110,6 +141,7 @@ public class Principla extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(217, 360, -1, -1));
 
         jButton2.setText("REGISTRAR");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -117,93 +149,18 @@ public class Principla extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(346, 394, -1, -1));
+        jPanel1.add(imagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(338, 357, 412, 26));
 
         jLabel8.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 45, 334, 278));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel6))
-                                .addGap(59, 59, 59)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jButton1)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(imagen, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)
-                                            .addComponent(placa)
-                                            .addComponent(modelo)
-                                            .addComponent(marca)
-                                            .addComponent(color)
-                                            .addComponent(propietario))
-                                        .addGap(37, 37, 37)
-                                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(43, 43, 43)
-                        .addComponent(jLabel7)))
-                .addContainerGap(78, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addGap(527, 527, 527))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(placa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(modelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(marca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(color, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(propietario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(34, 34, 34)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(imagen, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel7)
-                        .addComponent(jButton1)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2)
-                .addGap(24, 24, 24))
-        );
+        infraccion.setText("Infraccion");
+        jPanel1.add(infraccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 180, -1, -1));
+
+        accidente.setText("Accidente");
+        jPanel1.add(accidente, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 210, -1, -1));
+        jPanel1.add(fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 250, 190, -1));
 
         jMenu1.setText("Agregar");
 
@@ -229,6 +186,18 @@ public class Principla extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
+        jMenu3.setText("Modificar");
+
+        jMenuItem3.setText("Modificar Registro");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem3);
+
+        jMenuBar1.add(jMenu3);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -238,13 +207,13 @@ public class Principla extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(45, 45, 45)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(137, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -253,13 +222,13 @@ public class Principla extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:agregar
-        jPanel1.setVisible(true);
+        mostrarRegistro(1);
         
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here: buscar
-        jPanel1.setVisible(false);
+        mostrarRegistro(2);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -316,13 +285,31 @@ public class Principla extends javax.swing.JFrame {
        {
            JOptionPane.showMessageDialog(this,"El campo color es obligatorio.");
        }
-       else if(propietario.getText().equals(""))
+       else if(fecha.getDate().equals(""))
        {
-           JOptionPane.showMessageDialog(this,"El campo propietario es obligatorio.");
+           JOptionPane.showMessageDialog(this,"El campo fecha es obligatorio.");
+       }
+       else if(!infraccion.isSelected() && !accidente.isSelected())
+       {
+           JOptionPane.showMessageDialog(this,"El campo accidente es obligatorio.");
        }
        else
        {
-           if(c.ingresar(placa.getText(), modelo.getText(), marca.getText(), color.getText(), propietario.getText(), jTextArea1.getText(),nombre))
+           Date date = fecha.getDate();
+           String strDate = DateFormat.getDateInstance().format(date);
+           java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+
+           //JOptionPane.showMessageDialog(this,sqlDate);
+           int r=0;
+           if(infraccion.isSelected())
+           {
+               r=1;
+           }
+           else
+           {    
+               r=2;
+           }
+            if(c.ingresar(placa.getText(), modelo.getText(), marca.getText(), color.getText(),r , sqlDate.toString(),nombre))
            {
                copy(archivo, nombre);
                JOptionPane.showMessageDialog(this,"Registro ingresado.");
@@ -334,6 +321,11 @@ public class Principla extends javax.swing.JFrame {
            }
        }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        mostrarRegistro(3);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
     
     private void copy(String source, String fg)
     {
@@ -374,8 +366,9 @@ public class Principla extends javax.swing.JFrame {
         modelo.setText("");
         marca.setText("");
         color.setText("");
-        propietario.setText("");
-        jTextArea1.setText("");
+        fecha.setDate(null);
+      /*  propietario.setText("");
+        jTextArea1.setText("");*/
         jLabel8.setText("");
         imagen.setText("");
         jLabel8.setIcon(null);
@@ -417,8 +410,12 @@ public class Principla extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButton accidente;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JTextField color;
+    private com.toedter.calendar.JDateChooser fecha;
     private javax.swing.JLabel imagen;
+    private javax.swing.JRadioButton infraccion;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
@@ -431,15 +428,63 @@ public class Principla extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField marca;
     private javax.swing.JTextField modelo;
     private javax.swing.JTextField placa;
-    private javax.swing.JTextField propietario;
     // End of variables declaration//GEN-END:variables
+
+    private void mostrarRegistro(int i) {
+        
+        switch(i)
+        {
+            case 1:
+            {
+                jPanel1.setVisible(true);
+                break;
+            }
+            
+            case 2:
+            {
+                
+                jPanel1.setVisible(false);
+                
+                grupo.add(rmarca);
+                grupo.add(rmodelo);
+                grupo.add(rplaca);
+                rmarca.setBounds(50,10,100,48);
+                rmodelo.setBounds(50,40,100,48);
+                rplaca.setBounds(50,70,100,48);
+                buscar.setBounds(200,50,200,48);
+                btnBuscar.setBounds(400,50,80,48);
+                table.setBounds(50,150,940,300);
+                
+                rmarca.setVisible(true);
+                rmodelo.setVisible(true);
+                rplaca.setVisible(true);
+                buscar.setVisible(true);
+                btnBuscar.setVisible(true);
+                table.setVisible(true);
+                
+                add(rmarca);
+                add(rmodelo);
+                add(rplaca);
+                add(buscar);
+                add(btnBuscar);
+                add(table);
+                this.repaint();
+                
+                
+                
+                
+                
+                break;
+            }
+        }
+    }
 }
